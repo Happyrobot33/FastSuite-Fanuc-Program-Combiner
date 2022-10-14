@@ -24,6 +24,12 @@ class P_PositionalData:
         # for the purposes of this program we can keep them in this format
         self.positions = rawPositions
 
+        #loop through all the positions, and if E1 equals 90, set it to the value of the previous position
+        for i in range(len(self.positions)):
+            if "E1 = 90.000 mm" in self.positions[i]:
+                self.positions[i] = self.positions[i].replace(
+                    "E1 = 90.000 mm", "E1 = " + self.positions[i - 1].split("E1 = ")[1].split(" ")[0] + " mm")
+
         self.startPositionNumber = 1
         self.positionCount = len(self.positions)
 
@@ -35,7 +41,7 @@ class P_PositionalData:
         for position in self.positions:
             returnString += position + ";"
 
-        returnString += "\n/END"
+        returnString += "\n/END\n"
 
         # Return the string
         return returnString

@@ -34,8 +34,6 @@ for program in programs:
 
 # write the merged program to a file
 # remove .ls if it exists, no matter if its capital or not
-fileName = programs[0].programInfo.FileName.replace(".ls", "")
-fileName = fileName.replace(".LS", "")
-programs[0].saveFile("Merged/" + fileName + ".LS")
+programs[0].saveFile("Merged/" + programs[0].programInfo.Name + ".ls")
 
 print("Merged file saved to Merged/" + programs[0].programInfo.FileName)

@@ -21,7 +21,7 @@ class P_Lines:
 
         # add in comments to the start and end of the line array to indicate a seperate program
         self.lines.insert(0, P_Instruction(
-            "NULL: CALL PICK_TOOL_" + str(UTOOL + 1)))
+            "NULL: CALL PICK_TOOL_" + str(UTOOL)))
         self.lines.insert(0, P_Instruction("NULL: !Start of merged program"))
         self.lines.insert(0, P_Instruction("NULL: "))
         self.lines.append(P_Instruction("NULL: !End of merged program"))
