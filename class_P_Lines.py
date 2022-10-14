@@ -13,7 +13,11 @@ class P_Lines:
         # loop through the lines and convert them into P_Instruction objects
         self.lines = []
         for line in rawLines:
-            self.lines.append(P_Instruction(line))
+            #check to make sure the instruction isnt any of these first
+            # UTOOL_NUM
+            # UFRAME_NUM
+            if not "UTOOL_NUM" in line and not "UFRAME_NUM" in line:
+                self.lines.append(P_Instruction(line))
 
         # add in comments to the start and end of the line array to indicate a seperate program
         self.lines.insert(0, P_Instruction(

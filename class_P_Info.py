@@ -16,6 +16,12 @@ class P_Info:
         self.MemorySize =       programInfo.split("MEMORY_SIZE")[1].split("= ")[1].split(";")[0]
         self.Protect =          programInfo.split("PROTECT")[1].split("= ")[1].split(";")[0]
 
+        #sanitize create date and modify date to remove AM or PM
+        self.CreateDate = self.CreateDate.replace("AM", "")
+        self.CreateDate = self.CreateDate.replace("PM", "")
+        self.ModifyDate = self.ModifyDate.replace("AM", "")
+        self.ModifyDate = self.ModifyDate.replace("PM", "")
+
         #TCD is complicated as it is a list of values, each on a new line delimited by a comma
         #Example is:
         #TCD: STACK_SIZE      = 0,
