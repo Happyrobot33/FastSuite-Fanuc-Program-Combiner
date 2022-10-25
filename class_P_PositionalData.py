@@ -1,3 +1,5 @@
+import re
+
 class P_PositionalData:
     def __init__(self, positionalData):
         # Split the positional data into an array based on the ; character
@@ -37,6 +39,9 @@ class P_PositionalData:
         # Create the string to be returned
         returnString = "/POS"
 
+        #fix the UT values
+        self.fixUTOOLS()
+
         # Loop through the positions and add them to the string
         for position in self.positions:
             returnString += position + ";"
@@ -60,6 +65,28 @@ class P_PositionalData:
             newPositions.append(newPosition)
 
         self.positions = newPositions
+
+    #This is needed because fastsuite does not allow for the position number to have different UT values per group, and all other groups except GP1 need to have UT 1 for the program to work
+    def fixUTOOLS(self):
+        # loop through the positions and fix the UT values
+        for i in range(len(self.positions)):
+            position = self.positions[i]
+
+            # replace all UT values with 1, except for GP1
+            #split after E1, this ensures that the UT value is not changed for the GP1 group
+            beforeE1 = position.split("E1 = ")[0]
+            afterE1 = position.split("E1 = ")[1]
+
+            #loop through and replace everything that is "UT : {NUMBER}" with "UT : 1"
+            for match in re.findall("UT : \d+", afterE1):
+                afterE1 = afterE1.replace(match, "UT : 1")
+            
+            #reconstruct the string
+            position = beforeE1 + "E1 = " + afterE1
+
+            #replace the position in the array
+            self.positions[i] = position
+
 
     def getUTOOL(self):
         # use the first position to get the UTOOL
