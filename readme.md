@@ -2,6 +2,12 @@ What this changes in the downloader
 - Trims file names to 33 characters
   - This is needed because for some reason FANUC programs wont be read if they are longer than this
 - removes the AM and PM from the creation and modification date in the attributes section
+  - ```ls
+  	CREATE          = DATE 23-04-13 TIME 01:16:08 PM;
+  ```
+  Turns into
+  ```ls
+  	CREATE          = DATE 23-04-13 TIME 01:16:08;```
 - Makes sure all other groups other than GP1 and GP2 always have UTool 1
 - E1 doesnt get populated properly if it isnt set for a specific position entry. This sets E1 to the previous position entrys E1 to fix that
   - Example: If you have a position entry with E1 at 1256mm, and your next position doesnt change E1, then E1 will instead be set to 90mm for that position entry
