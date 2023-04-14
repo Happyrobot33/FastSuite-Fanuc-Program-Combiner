@@ -5,7 +5,7 @@ What this changes in the downloader
 - Makes sure all other groups other than GP1 and GP2 always have UTool 1
 - E1 doesnt get populated properly if it isnt set for a specific position entry. This sets E1 to the previous position entrys E1 to fix that
   - Example: If you have a position entry with E1 at 1256mm, and your next position doesnt change E1, then E1 will instead be set to 90mm for that position entry
-  - ```json
+  - ```ls
 	 P[10]{
 	   GP1:
 	  UF : 0, UT : 1, CONFIG : 'N   U   T, 0,0,0',  
@@ -33,4 +33,5 @@ What this changes in the downloader
 	   GP3:
 	  UF : 0, UT : 1,
 	  J1 = 301.777 deg
-	};```
+	};
+    ```
