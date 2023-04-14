@@ -66,26 +66,25 @@ class P_PositionalData:
 
         self.positions = newPositions
 
-    #This is needed because fastsuite does not allow for the position number to have different UT values per group, and all other groups except GP1 need to have UT 1 for the program to work
+    #This is needed because fastsuite does not allow for the position number to have different UT values per group, and all other groups except GP1/GP2 need to have UT 1 for the program to work
     def fixUTOOLS(self):
         # loop through the positions and fix the UT values
         for i in range(len(self.positions)):
             position = self.positions[i]
 
-            # replace all UT values with 1, except for GP1
-            #split after E1, this ensures that the UT value is not changed for the GP1 group
-            beforeE1 = position.split("E1 = ")[0]
-            afterE1 = position.split("E1 = ")[1]
+            #change the Utool value for any groups other than GP1 and GP2
+            afterGP2 = position.split("GP2:")[1]
+            beforeGP2 = afterGP2.split("UT : ")[0]
+            afterGP2 = afterGP2.split("UT : ")[1:]
+            #join them all back together
+            afterGP2 = "UT : ".join(afterGP2)
 
-            #loop through and replace everything that is "UT : {NUMBER}" with "UT : 1"
-            for match in re.findall("UT : \d+", afterE1):
-                afterE1 = afterE1.replace(match, "UT : 1")
-            
-            #reconstruct the string
-            position = beforeE1 + "E1 = " + afterE1
+            #find all spots where "UT : {SOME NUMBER}" and replace it with "UT : 1"
+            afterGP2 = re.sub(r"UT : \d+", "UT : 1", afterGP2)
 
-            #replace the position in the array
-            self.positions[i] = position
+            #recombine the position
+            self.positions[i] = position.split("GP2:")[0] + "GP2:" + beforeGP2 + "UT : " + afterGP2
+
 
 
     def getUTOOL(self):

@@ -19,6 +19,17 @@ class LSFile:
         # Load the file
         self.loadFile()
 
+        #if the file name is longer than 35 characters, trim it
+        if len(self.fileName) > 35:
+            self.fileName = self.fileName[:35]
+            #inform the user that the file name has been trimmed
+            print("File name trimmed to 35 characters! new file name: " + self.fileName)
+
+        #make sure the /prog name is the same as the file name
+        #remove the ToConvert/ from the file name
+        self.programInfo.Name = self.fileName[10:]
+        self.programInfo.FileName = self.fileName[10:]
+
     # This function will load the file and split it into the three sections, to be passed to sub classes that will contain the data
     def loadFile(self):
         # Get the file contents
